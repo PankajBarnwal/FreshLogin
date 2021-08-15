@@ -17,22 +17,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/login', 'login');
-Route::view('/register', 'register');
+Route::get('/login', [AllController::class,'loginview']);
+Route::get('/register', [AllController::class,'registerForm']);
 
 Route::post('/register',[AllController::class,'register']);
 Route::post('/login',[AllController::class,'login']);
 
 Route::get('/logout', function () {
     if(session()->has('UserData')){
-        session()->pull('UserData');
-        return redirect('/');
+        session()->flush('UserData');
+        return redirect('/login');
     }
 });
+
 // Route::get('/login', function () {
 //     if(session()->has('UserData')){
 //         return redirect('/');
 //     }else{
+//         return redirect('/login');
+//     }
+// });
+// Route::get('/register', function () {
+//     if(session()->has('UserData')){
 //         return redirect('/');
+//     }else{
+//         return redirect('/login');
 //     }
 // });
